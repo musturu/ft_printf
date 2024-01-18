@@ -1,4 +1,4 @@
-#include <stdarg.h>
+#include "ft_printf.h"
 
 
 /*
@@ -37,6 +37,7 @@ int	ft_printf(const char *str, ...)
 {
 	int		count;
 	va_list	*ap;
+	int i;
 
 	ap = va_start(ap, str);
 	count = 0;
@@ -47,7 +48,7 @@ int	ft_printf(const char *str, ...)
 	return (count);
 }
 
-void	pipeline(const char *str, va_list ap, int count)
+void	pipeline(const char *str, va_list ap, int *count)
 {
 	/*
 	get format
@@ -58,12 +59,12 @@ void	pipeline(const char *str, va_list ap, int count)
 	*/
 }
 
-char *get_format(const char* str)
+char *get_format(const char *str)
 {
 	int	i;
 
 	i = 0;
-	while (is_accepted_flag(str[i]))
+	while (is_accepted_flag(*str[i]))
 		i++;
 	while (ft_isdigit(str[i]))
 		i++;
@@ -79,26 +80,7 @@ char *get_format(const char* str)
 		return (NULL);
 }
 
-int	is_accepted_conv(int c)
-{
-	if (c == 'c' || c == 's' || c == 'p' || c == 'd' 
-	|| c == 'i' || c == 'u'|| c == 'x' 
-	|| c == 'X' || c == '%') 
-		return (1);
-	else
-		return 0;
-}
-
-int	is_accepted_flag(int c)
-{
-	if (c == '-' || c == ' ' || c == '0' || c == '#' 
-	|| c == '+')
-		return (1);
-	else
-		return 0;
-}
-
-void	format_read(const char *format)
+t_format	format_read(const char *format)
 {
 	char		*flags;
 	int			i;
@@ -118,5 +100,29 @@ void	format_read(const char *format)
 		i++;
 	f.conversion = format[i];
 	f.flags = flags;
+	return (f);
 	free(format);
 }
+
+char	*stringify(t_format format, va_list ap)
+{
+	if (format.conversion == '%')
+		return	str_perc(format);
+	if (format.conversion == 'c')
+		return	str_c(format, va_arg(args, int));
+	if (format.conversion == 's')
+		return	str_s(format, va_arg(args, char *));
+	if (format.conversion == 'p')
+		return	str_ptrnum(format, va_arg(args, void*));
+	if (format.conversion == 'd')
+		return	str_num(format, va_arg(args, int));
+	if (format.conversion == 'i')
+		return	str_num(format, va_arg(args, int));
+	if (format.conversion == 'u')
+		return	str_num(format, va_arg(args, int));
+	if (format.conversion == 'x')
+		return	str_hexnum(format, va_arg(args, unsigned int));
+	if (format.conversion == 'X')
+		return	str_hexnum(format, va_arg(args, unsigned int));
+}
+
