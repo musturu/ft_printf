@@ -19,19 +19,23 @@ int	is_accepted_flag(int c)
 		return 0;
 }
 
-int is_signed(int c, t_format format)
+int is_signed(int c, t_format fmt)
 {
-    if (c < 0 || ft_strchr(format.flags, '+'))
+    if ((c < 0 || ft_strchr(fmt.flags, '+')) 
+	&& (fmt.conversion == 'd' || fmt.conversion == 'i'))
         return (1);
     else
         return (0);
 }
 
-int need_space(int c, t_format format)
+int need_space(int c, t_format fmt)
 {
-    if (is_signed(c, format))
+	if (fmt.conversion == 'x' || fmt.conversion == 'X' && ft_strchr(fmt.flags, '#'))
+		return (2);
+    if (is_signed(c, fmt))
         return (1);
-    else if (ft_strchr(format.flags, ' '))
+    else if (ft_strchr(fmt.flags, ' ')
+	&& (fmt.conversion == 'd' || fmt.conversion == 'i'))
         return (1);
     else
         return (0);

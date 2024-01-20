@@ -1,6 +1,5 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include "libft.h"
 
 typedef struct s_format
 {
