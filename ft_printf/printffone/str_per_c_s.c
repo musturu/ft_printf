@@ -6,28 +6,30 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:36:56 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/22 15:36:01 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:00:26 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+#include <stdio.h>
 char *str_c(t_format format, int c)
 {
     char    *ret;
-    int     len;
+    int len;
 
     if (format.width == 0)
-        ret = malloc(sizeof(char) * 2);
+	    len = 2;
     else
-        ret = malloc(sizeof(char) * (format.width + 1));
+	    len = format.width + 1;
+    ret = ft_calloc(sizeof(char) , len);
     if (ret == NULL)
         return (NULL);
-    ft_memset(ret, ' ', ft_strlen(ret) - 1);
+    ft_memset(ret, ' ', len);
+    ret[len - 1] = '\0';
     if (ft_strchr(format.flags, '-'))
         ret[0] = c;
     else
-        ret[ft_strlen(ret) - 1] = c;
+        ret[len - 2] = c;
     return (ret);
 }
 
@@ -35,7 +37,6 @@ char *str_perc(t_format format)
 {
     char    *ret;
 
-    if (format.width == 0 && format.flags == NULL && format.pflag == 0)
         ret = malloc(sizeof(char) * 2);
     if (ret == NULL)
         return (NULL);
@@ -43,31 +44,45 @@ char *str_perc(t_format format)
     return (ret);
 }
 
+void	ft_new_strlcpy(char *dest,char *src, size_t len)
+{
+	int	i;
 
+	i = 0;
+	while(i < len && src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+}
 char *str_s(t_format format, char *str)
 {
-    char    *ret;
-    int     len;
+    char	*ret;
+    int		len;
+    int		maxwrite;
 
     len = ft_strlen(str);
     if (len > format.width)
     {
         if (format.pflag)
         {
-            if (format.precision < len)
-                ret = malloc(sizeof(char) * (format.precision + 1));
+            if (len > format.precision)
+		    len = format.precision;
         }
-        else
-            ret = malloc(sizeof(char) * (len + 1));
     }
-    else
-        ret = malloc(sizeof(char) * (format.width + 1));
+    if (len <= format.width)
+	    len = format.width;
+    ret = ft_calloc(sizeof(char) , (len + 1));
     if (ret == NULL)
         return (NULL);
-    ft_memset(ret, ' ', ft_strlen(ret) - 1);
-    if (ft_strchr(format.flags, '-'))
-        ft_strlcpy(ret, str, len);
+    ft_memset(ret, ' ', len);
+    if (format.pflag && ft_strlen(str) > format.precision)
+	    maxwrite = format.precision;
     else
-        ft_strlcpy(ret + (ft_strlen(ret) - len), str, len);
+	    maxwrite = ft_strlen(str);
+    if (ft_strchr(format.flags, '-'))
+        ft_new_strlcpy(ret, str, maxwrite);
+    else
+        ft_strlcpy(ret + (len - maxwrite), str, maxwrite + 1);
     return (ret);
 }

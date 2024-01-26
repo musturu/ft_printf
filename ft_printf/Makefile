@@ -1,4 +1,4 @@
-NAME = libftprint.a
+NAME = test
 
 SRCS = printffone/*.c
 LIBFT = libft

@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 16:13:13 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/22 16:14:21 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:47:43 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char *get_format(const char *str)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (is_accepted_flag(str[i]))
 		i++;
 	while (ft_isdigit(str[i]))
@@ -27,13 +27,13 @@ char *get_format(const char *str)
 		while (ft_isdigit(str[i]))
 		i++;
 	}
-	if (is_accepted_conv(str[++i]))
-		return (ft_substr(str, 0, i));
+	if (is_accepted_conv(str[i]))
+		return (ft_substr(str, 0, i+1));
 	else
 		return (NULL);
 }
 
-t_format	format_read(char *format)
+t_format	read_format(char *format)
 {
 	char		*flags;
 	int			i;
@@ -41,8 +41,8 @@ t_format	format_read(char *format)
 
 	i = 0;
 	flags = ft_calloc(ft_strlen(format), sizeof(char));
-	while (is_accepted_flag(format[i]))
-		flags[i++] = format[i++];
+	while (is_accepted_flag(format[++i]))
+		flags[i-1] = format[i];
 	f.width = ft_atoi(format + i);
 	while (ft_isdigit(format[i]))
 		i++;
@@ -53,6 +53,8 @@ t_format	format_read(char *format)
 	f.precision = ft_atoi(format + i + 1);
 	while (ft_isdigit(format[i]))
 		i++;
+	while(!is_accepted_conv(format[i]))
+			i++;
 	f.conversion = format[i];
 	f.flags = flags;
 	return (f);
