@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:36:15 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/26 16:08:47 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:19:28 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ char	*stringify(t_format format, va_list ap)
 		return	str_c(format, va_arg(ap, int));
 	if (format.conversion == 's')
 		return	str_s(format, va_arg(ap, char *));
-	/*if (format.conversion == 'p')
-		return	str_ptrnum(format, va_arg(ap, void*));
+	//if (format.conversion == 'p')
+	//	return	str_ptrnum(format, va_arg(ap, void*));
 	if (format.conversion == 'd')
 		return	str_num(format, va_arg(ap, int));
 	if (format.conversion == 'i')
@@ -81,7 +81,7 @@ char	*stringify(t_format format, va_list ap)
 	if (format.conversion == 'x')
 		return	str_hexnum(format, va_arg(ap, unsigned int));
 	if (format.conversion == 'X')
-		return	str_hexnum(format, va_arg(ap, unsigned int));*/
+		return	str_hexnum(format, va_arg(ap, unsigned int));
 }
 
 void	pipeline(const char *str, va_list ap, int *count, int *i)

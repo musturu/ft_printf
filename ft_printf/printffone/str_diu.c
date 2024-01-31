@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_diu_xxp.c                                      :+:      :+:    :+:   */
+/*   str_diu.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:36:51 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/30 16:42:37 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:38:47 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 static char    *mal_diux(t_format fmt, int str, int base);
+int    init_diux(t_format fmt, char *str, int len, int base);
 
 char *str_num(t_format fmt, int str)
 {
 	char	*ret;
-	char conv;
 
-	conv = fmt.conversion;
-	if (conv == 'd' || conv == 'i' || conv == 'u')
-		ret = mal_diux(fmt, str, 10);
-	if (conv == 'x' || conv == 'X')
-		ret = mal_diux(fmt, str, 16);
+	ret = mal_diux(fmt, str, 10);
 	return (ret);
 }
 
@@ -44,9 +40,9 @@ static char    *mal_diux(t_format fmt, int str, int base)
     ret = malloc(sizeof(char) * (len + 1));
     if (ret == NULL)
 	    return (NULL);
-    startind = init_diux(fmt, ret, len, base);
-    ft_memset(ret + startind, need_sign(fmt, str), need_space(str, fmt));
-    write_num(fmt, startind + need_space(str, fmt), str, base);
+    startind = init_diux(fmt, ret, len, str);
+    write_num(fmt, startind + need_space(str, fmt), str, ret);
+    put_sign(fmt, str, ret);
     return (ret);
 }
 
@@ -62,22 +58,45 @@ static char    *mal_p(t_format fmt, int str)
     return (ret);
 }
 
-int    init_diux(t_format fmt, char *str, int len, int base)
+int    init_diux(t_format fmt, char *str, int len, int num)
 {
 	int i;
 	char pad;
 	int	startindex;
-	char	*strnum;
-	i = need_space(*str, fmt);
+	int base;
+
+	base = get_base(fmt);
+	i = need_space(num, fmt);
 	pad = needed_pad(fmt);
-	ft_memset(*str, pad, len);
-	if (ft_strchar(fmt, '-'))
-		startindex = need_space(str, fmt);
-	else 
-		if (fmt.precision >= countd(str, base) + need_space(str, fmt);
-			startindex = fmt.width - (fmt.precision + i);
+	ft_memset(str, pad, len);
+	if (ft_strchr(fmt.flags, '-') && fmt.precision <= countd(num, base))
+		startindex = need_space(num, fmt);
+	if (ft_strchr(fmt.flags, '-') && fmt.precision > countd(num, base))
+		startindex = i + fmt.precision - countd(num, base);
+	else if (!ft_strchr(fmt.flags, '-')) 
+		if (fmt.precision > countd(num, base) + i)
+			startindex = len - (countd(num, base));
 		else
-			startindex = fmt.width - countd(str, base) + i;
-	ft_memset(*(str + startindex), '0', fmt.precision);
+			startindex = len - (countd(num, base) + i);
+	ft_memset((str + i), '0', fmt.precision);
 	return (startindex);
+	/*
+	int i;
+	char pad;
+	int	startindex;
+	int base;
+	base = get_base(fmt);
+	i = need_space(num, fmt);
+	pad = needed_pad(fmt);
+	ft_memset(str, pad, len);
+	if (ft_strchr(fmt.flags, '-'))
+		startindex = need_space(num, fmt);
+	else 
+		if (fmt.precision > countd(num, base) + i)
+			startindex = len - (countd(num, base) + i);
+		else
+			startindex = len - (countd(num, base) + i);
+	ft_memset((str + i), '0', fmt.precision);
+	return (startindex);*/
 }
+

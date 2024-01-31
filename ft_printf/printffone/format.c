@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 16:13:13 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/26 15:47:43 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:22:34 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ t_format	read_format(char *format)
 			i++;
 	f.conversion = format[i];
 	f.flags = flags;
-	return (f);
 	free(format);
+	return (f);
 }

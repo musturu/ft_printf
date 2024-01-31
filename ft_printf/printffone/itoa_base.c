@@ -6,9 +6,11 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:04:03 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/29 13:22:53 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:49:01 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_printf.h"
 
 static unsigned int	getpower(unsigned int count, int basenum)
 {
@@ -33,8 +35,8 @@ char	*ft_itoa_base(unsigned int number, char *base)
 
 	basen = ft_strlen(base);
 	i = 0;
-	ipwr = getpower(digitc(number, basen), basen);
-	ret = ft_calloc(sizeof(char), digitc(number, basen));
+	ipwr = getpower(countd(number, basen), basen);
+	ret = ft_calloc(sizeof(char), countd(number, basen));
 	while (ipwr != 0)
 	{
 		ret[i++] = base[(number / ipwr)];

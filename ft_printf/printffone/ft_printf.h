@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:08:33 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/29 13:23:03 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:46:01 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "../libft/libft.h"
 typedef struct s_format
 {
@@ -38,8 +39,13 @@ char		*str_s(t_format format, char *str);
 void		ft_putstr_count(char *str, int *count);
 char		*str_ptrnum(t_format format, void *ptr);
 char		*str_num(t_format format, int num);
-char		*str_hexnum(t_format format, int num);
+char		*str_hexnum(t_format format,unsigned int num);
 int		countd(long int num, int base);
 void		ft_putchar_count(char c, int *count);
 char	*ft_itoa_base(unsigned int number, char *base);
+char	*need_sign(t_format fmt, int c);
+char	needed_pad(t_format fmt);
+int	get_base(t_format fmt);
+void	put_sign(t_format fmt, int num, char *dest);
+void	write_num(t_format fmt, int index, long int number, char *dest);
 #endif

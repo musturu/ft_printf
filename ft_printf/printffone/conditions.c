@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:36:34 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/30 16:25:34 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:00:41 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int is_signed(int c, t_format fmt)
 
 int need_space(int c, t_format fmt)
 {
-	if (fmt.conversion == 'x' || fmt.conversion == 'X' && ft_strchr(fmt.flags, '#'))
+	char cv;
+
+	cv = fmt.conversion;
+	if ((cv == 'x' || cv == 'X') && ft_strchr(fmt.flags, '#'))
 		return (2);
     if (is_signed(c, fmt))
         return (1);
