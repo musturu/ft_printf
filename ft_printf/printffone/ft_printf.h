@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:08:33 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/25 16:21:38 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:23:03 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ char		*str_num(t_format format, int num);
 char		*str_hexnum(t_format format, int num);
 int		countd(long int num, int base);
 void		ft_putchar_count(char c, int *count);
-
+char	*ft_itoa_base(unsigned int number, char *base);
 #endif

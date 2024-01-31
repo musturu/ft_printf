@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:36:34 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/22 14:36:40 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:25:34 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int need_space(int c, t_format fmt)
     if (is_signed(c, fmt))
         return (1);
     else if (ft_strchr(fmt.flags, ' ')
-	&& (fmt.conversion == 'd' || fmt.conversion == 'i'))
+	&& (fmt.conversion == 'd' || fmt.conversion == 'i')
+	&& fmt.width == 0 && !fmt.pflag)
         return (1);
     else
         return (0);
