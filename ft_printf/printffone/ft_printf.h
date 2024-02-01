@@ -16,7 +16,9 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include "../libft/libft.h"
+
 typedef struct s_format
 {
 	char	*flags;
@@ -26,6 +28,8 @@ typedef struct s_format
 	char	conversion;
 } t_format;
 
+
+void    write_ptr(t_format fmt, int index, uintptr_t number, char *dest);
 int		ft_printf(const char *str, ...);
 char		*get_format(const char* str);
 t_format	read_format(char *format);
@@ -46,6 +50,7 @@ char	*ft_itoa_base(unsigned int number, char *base);
 char	*need_sign(t_format fmt, int c);
 char	needed_pad(t_format fmt);
 int	get_base(t_format fmt);
-void	put_sign(t_format fmt, int num, char *dest);
-void	write_num(t_format fmt, int index, long int number, char *dest);
+void	put_sign(char *fmt, int num, char *dest);
+void	write_num(t_format fmt, int index, long unsigned int number, char *dest);
+char    *ft_itoa_base_ptr(uintptr_t number, char *base);
 #endif

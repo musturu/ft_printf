@@ -24,7 +24,7 @@ int get_prec(t_format fmt)
     return (i);
 }
 
-int    init_p(t_format fmt, char *str,int len,unsigned int num)
+int    init_p(t_format fmt, char *str,int len, uintptr_t num)
 {
     int i;
     char pad;
@@ -46,13 +46,13 @@ int    init_p(t_format fmt, char *str,int len,unsigned int num)
         if (fmt.precision > countd(num, base) + i)
             startindex = len - (countd(num, base) + prec);
         else
-            startindex = len - (countd(num, base) + i + prec);
+            startindex = len - (countd(num, base));
     }
     ft_memset((str + i), '0', fmt.precision);
     return (startindex);
 }
 
-static char    *mal_p(t_format fmt,unsigned long int str)
+static char    *mal_p(t_format fmt, uintptr_t str)
 {
     char    *ret;
     int     count;
@@ -70,7 +70,7 @@ static char    *mal_p(t_format fmt,unsigned long int str)
     if (ret == NULL)
         return (NULL);
     startind = init_p(fmt, ret, len, str);
-    write_num(fmt, startind, str, ret);
+    write_ptr(fmt, startind, str, ret);
     put_sign("0x", 2, ret);
     return (ret);
 }
@@ -78,9 +78,10 @@ static char    *mal_p(t_format fmt,unsigned long int str)
 char	*str_ptrnum(t_format fmt, void *ptr)
 {
     char    *ret;
-    unsigned long int num;
-    
-    num = (unsigned long int)ptr;
+    uintptr_t num;
+    if (ptr == NULL)
+         return (ft_strdup("0x0"));
+    num = (uintptr_t)ptr;
     ret = mal_p(fmt, num);
     return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:42:36 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/31 18:22:28 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:25:55 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int    init_x(t_format fmt, char *str,int len,unsigned int num)
     	if (fmt.precision > countd(num, base) + i)
 			startindex = len - (countd(num, base));
 		else
-			startindex = len - (countd(num, base) + i);
+			startindex = len - (countd(num, base));
     }
     ft_memset((str + i), '0', fmt.precision);
 	return (startindex);
@@ -52,7 +52,7 @@ static char    *mal_x(t_format fmt, unsigned int str)
 	    len = fmt.width;
     else
 	    len = count;
-    ret = malloc(sizeof(char) * (len + 1));
+    ret = ft_calloc(sizeof(char), (len + 1));
     if (ret == NULL)
 	    return (NULL);
     startind = init_x(fmt, ret, len, str);

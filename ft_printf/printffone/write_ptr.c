@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
-void	write_num(t_format fmt, int index, long unsigned int number, char *dest)
+void	write_ptr(t_format fmt, int index, uintptr_t number, char *dest)
 {
 	char	*ito;
 	char	*base;
 	char	c;
-	long unsigned int num;
+	uintptr_t num;
 
 	c = fmt.conversion;
 	num = number;
@@ -29,7 +29,7 @@ void	write_num(t_format fmt, int index, long unsigned int number, char *dest)
 		base = "0123456789ABCDEF";
 	if (c == 'i' || c == 'u' || c == 'd')
 		base = "0123456789";
-	ito = ft_itoa_base(num, base);
+	ito = ft_itoa_base_ptr(num, base);
 	ft_memcpy(dest + index, ito, ft_strlen(ito));
 	free(ito);
 }

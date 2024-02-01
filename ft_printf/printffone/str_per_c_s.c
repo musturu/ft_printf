@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:36:56 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/26 18:00:26 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:31:42 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char *str_perc(t_format format)
 {
     char    *ret;
 
-        ret = malloc(sizeof(char) * 2);
+        ret = ft_calloc(sizeof(char) , 2);
     if (ret == NULL)
         return (NULL);
         ret[0] = '%';
@@ -60,7 +60,9 @@ char *str_s(t_format format, char *str)
     char	*ret;
     int		len;
     int		maxwrite;
-
+    
+    if (str == NULL)
+        return (NULL);
     len = ft_strlen(str);
     if (len > format.width)
     {

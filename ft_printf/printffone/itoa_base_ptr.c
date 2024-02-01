@@ -26,7 +26,7 @@ static unsigned int	getpower(unsigned int count, int basenum)
 }
 
 
-char	*ft_itoa_base(unsigned int number, char *base)
+char	*ft_itoa_base_ptr(uintptr_t number, char *base)
 {
 	int basen;
 	int ipwr;

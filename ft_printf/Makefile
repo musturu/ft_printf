@@ -1,20 +1,39 @@
-NAME = test
+# Makefile principale
 
-SRCS = printffone/*.c
-LIBFT = libft
+TARGET = my_program
+SRC_DIR = printffone
+LIB_DIR = libft
+OBJ_DIR = obj
 
-OUT = $(SRCS:.c=.o)
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+LIB = $(LIB_DIR)/libft.a
 
 CC = gcc
+CFLAGS = -Wall -Wextra -I$(LIB_DIR)
 
-all:
-	make -C $(LIBFT)
-	$(CC) $(CFLAGS) $(SRCS) $(LIBFT)/libft.a -L/$(LIBFT) -o $(NAME)
+all: $(TARGET)
 
-clean: fclean
+$(TARGET): $(OBJS) $(LIB)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) -L$(LIB_DIR) -lft
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(LIB):
+	@$(MAKE) -C $(LIB_DIR)
+
+clean:
+	$(RM) -r $(OBJ_DIR)
+	@$(MAKE) -C $(LIB_DIR) clean
 
 fclean: clean
-	make clean -C $(LIBFT)
-	rm -rf $(NAME)
+	$(RM) $(TARGET)
+	@$(MAKE) -C $(LIB_DIR) fclean
 
 re: fclean all
+
+.PHONY: all clean fclean re

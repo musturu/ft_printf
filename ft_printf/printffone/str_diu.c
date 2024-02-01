@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 14:36:51 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/31 18:38:47 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:25:38 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char    *mal_diux(t_format fmt, int str, int base)
 	    len = fmt.width;
     else
 	    len = count;
-    ret = malloc(sizeof(char) * (len + 1));
+    ret = ft_calloc(sizeof(char) , (len + 1));
     if (ret == NULL)
 	    return (NULL);
     startind = init_diux(fmt, ret, len, str);
