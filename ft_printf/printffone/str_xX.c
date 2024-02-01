@@ -28,12 +28,13 @@ int    init_x(t_format fmt, char *str,int len,unsigned int num)
 	if (ft_strchr(fmt.flags, '-') && fmt.precision > countd(num, base))
 		startindex = i + fmt.precision - countd(num, base);
 	else if (!ft_strchr(fmt.flags, '-')) 
-		if (fmt.precision > countd(num, base) + i)
+    {
+    	if (fmt.precision > countd(num, base) + i)
 			startindex = len - (countd(num, base));
 		else
 			startindex = len - (countd(num, base) + i);
-	ft_memset((str + i), '0', fmt.precision);
-	printf("%d" , startindex);
+    }
+    ft_memset((str + i), '0', fmt.precision);
 	return (startindex);
 }
 
@@ -56,7 +57,7 @@ static char    *mal_x(t_format fmt, unsigned int str)
 	    return (NULL);
     startind = init_x(fmt, ret, len, str);
     write_num(fmt, startind, str, ret);
-    put_sign(fmt, str, ret);
+    put_sign(need_sign(fmt, str), need_space(str, fmt), ret);
     return (ret);
 }
 

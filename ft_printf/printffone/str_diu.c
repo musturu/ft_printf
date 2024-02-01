@@ -42,19 +42,7 @@ static char    *mal_diux(t_format fmt, int str, int base)
 	    return (NULL);
     startind = init_diux(fmt, ret, len, str);
     write_num(fmt, startind + need_space(str, fmt), str, ret);
-    put_sign(fmt, str, ret);
-    return (ret);
-}
-
-static char    *mal_p(t_format fmt, int str)
-{
-    char    *ret;
-    int     count;
-    count = countd(str, 16) + 2;
-    if (fmt.width > count + fmt.precision)
-        ret = malloc(sizeof(char) * (fmt.width + 1));
-    else
-        ret = malloc(sizeof(char) * (count + 1 + fmt.precision));
+    put_sign(need_sign(fmt, str), need_space(str, fmt), ret);
     return (ret);
 }
 
@@ -73,12 +61,14 @@ int    init_diux(t_format fmt, char *str, int len, int num)
 		startindex = need_space(num, fmt);
 	if (ft_strchr(fmt.flags, '-') && fmt.precision > countd(num, base))
 		startindex = i + fmt.precision - countd(num, base);
-	else if (!ft_strchr(fmt.flags, '-')) 
+	else if (!ft_strchr(fmt.flags, '-'))
+    {
 		if (fmt.precision > countd(num, base) + i)
 			startindex = len - (countd(num, base));
 		else
 			startindex = len - (countd(num, base) + i);
-	ft_memset((str + i), '0', fmt.precision);
+    }
+    ft_memset((str + i), '0', fmt.precision);
 	return (startindex);
 	/*
 	int i;

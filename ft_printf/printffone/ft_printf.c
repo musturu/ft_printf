@@ -82,6 +82,8 @@ char	*stringify(t_format format, va_list ap)
 		return	str_hexnum(format, va_arg(ap, unsigned int));
 	if (format.conversion == 'X')
 		return	str_hexnum(format, va_arg(ap, unsigned int));
+    else
+        return (NULL);
 }
 
 void	pipeline(const char *str, va_list ap, int *count, int *i)

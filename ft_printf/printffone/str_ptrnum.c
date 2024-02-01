@@ -12,4 +12,75 @@
 
 #include "ft_printf.h"
 
-char	*str_ptrnum(t_format fmt, void *ptr);
+int get_prec(t_format fmt)
+{
+    int i;
+    
+    i = 0;
+    if (fmt.pflag && fmt.precision > 8)
+        i = fmt.precision;
+    else if (fmt.pflag)
+        i = 2;
+    return (i);
+}
+
+int    init_p(t_format fmt, char *str,int len,unsigned int num)
+{
+    int i;
+    char pad;
+    int    startindex;
+    int base;
+    int prec;
+    
+    prec = get_prec(fmt);
+    base = 16;
+    i = 2;
+    pad = ' ';
+    ft_memset(str, pad, len);
+    if (ft_strchr(fmt.flags, '-') && fmt.precision <= countd(num, base))
+        startindex = i + prec;
+    if (ft_strchr(fmt.flags, '-') && fmt.precision > countd(num, base))
+        startindex = i + prec - countd(num, base);
+    else if (!ft_strchr(fmt.flags, '-'))
+    {
+        if (fmt.precision > countd(num, base) + i)
+            startindex = len - (countd(num, base) + prec);
+        else
+            startindex = len - (countd(num, base) + i + prec);
+    }
+    ft_memset((str + i), '0', fmt.precision);
+    return (startindex);
+}
+
+static char    *mal_p(t_format fmt,unsigned long int str)
+{
+    char    *ret;
+    int     count;
+    int     len;
+    int     startind;
+    
+    count = countd(str, 16) + 2;
+    if (fmt.precision >= fmt.width && fmt.precision >= count)
+        len = fmt.precision + 2;
+    else if (fmt.width > count && fmt.width > fmt.precision)
+        len = fmt.width;
+    else
+        len = count;
+    ret = malloc(sizeof(char) * (len + 1));
+    if (ret == NULL)
+        return (NULL);
+    startind = init_p(fmt, ret, len, str);
+    write_num(fmt, startind, str, ret);
+    put_sign("0x", 2, ret);
+    return (ret);
+}
+
+char	*str_ptrnum(t_format fmt, void *ptr)
+{
+    char    *ret;
+    unsigned long int num;
+    
+    num = (unsigned long int)ptr;
+    ret = mal_p(fmt, num);
+    return (ret);
+}
