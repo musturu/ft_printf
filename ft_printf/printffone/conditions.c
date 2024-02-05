@@ -33,8 +33,7 @@ int	is_accepted_flag(int c)
 
 int is_signed(int c, t_format fmt)
 {
-    if ((c < 0 || ft_strchr(fmt.flags, '+')) 
-	&& (fmt.conversion == 'd' || fmt.conversion == 'i'))
+    if (c < 0 || (ft_strchr(fmt.flags, '+') && (fmt.conversion == 'd' || fmt.conversion == 'i')))
         return (1);
     else
         return (0);
@@ -50,8 +49,7 @@ int need_space(int c, t_format fmt)
     if (is_signed(c, fmt))
         return (1);
     else if (ft_strchr(fmt.flags, ' ')
-	&& (fmt.conversion == 'd' || fmt.conversion == 'i')
-	&& fmt.width == 0 && !fmt.pflag)
+	&& (fmt.conversion == 'd' || fmt.conversion == 'i') && !fmt.pflag)
         return (1);
     else
         return (0);

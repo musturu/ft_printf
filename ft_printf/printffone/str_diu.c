@@ -12,8 +12,8 @@
 
 #include "ft_printf.h"
 
-static char    *mal_diux(t_format fmt, int str, int base);
-int    init_diux(t_format fmt, char *str, int len, int base);
+static char    *mal_diux(t_format fmt,long int str, int base);
+static int    init_diux(t_format fmt, char *str, int len, long int num);
 
 char *str_num(t_format fmt, int str)
 {
@@ -23,7 +23,15 @@ char *str_num(t_format fmt, int str)
 	return (ret);
 }
 
-static char    *mal_diux(t_format fmt, int str, int base)
+char	*str_unsnum(t_format fmt, unsigned int str)
+{
+	char	*ret;
+
+	ret = mal_diux(fmt, str, 10);
+	return (ret);
+}
+
+static char    *mal_diux(t_format fmt,long int str, int base)
 {
     char    *ret;
     int     count;
@@ -41,12 +49,12 @@ static char    *mal_diux(t_format fmt, int str, int base)
     if (ret == NULL)
 	    return (NULL);
     startind = init_diux(fmt, ret, len, str);
-    write_num(fmt, startind + need_space(str, fmt), str, ret);
+    write_num(fmt, startind /*+ need_space(str, fmt)*/, str, ret);
     put_sign(need_sign(fmt, str), need_space(str, fmt), ret);
     return (ret);
 }
 
-int    init_diux(t_format fmt, char *str, int len, int num)
+static int    init_diux(t_format fmt, char *str, int len,long int num)
 {
 	int i;
 	char pad;
@@ -66,27 +74,9 @@ int    init_diux(t_format fmt, char *str, int len, int num)
 		if (fmt.precision > countd(num, base) + i)
 			startindex = len - (countd(num, base));
 		else
-			startindex = len - (countd(num, base) + i);
+			startindex = len - (countd(num, base)/* + i*/);
     }
     ft_memset((str + i), '0', fmt.precision);
 	return (startindex);
-	/*
-	int i;
-	char pad;
-	int	startindex;
-	int base;
-	base = get_base(fmt);
-	i = need_space(num, fmt);
-	pad = needed_pad(fmt);
-	ft_memset(str, pad, len);
-	if (ft_strchr(fmt.flags, '-'))
-		startindex = need_space(num, fmt);
-	else 
-		if (fmt.precision > countd(num, base) + i)
-			startindex = len - (countd(num, base) + i);
-		else
-			startindex = len - (countd(num, base) + i);
-	ft_memset((str + i), '0', fmt.precision);
-	return (startindex);*/
 }
 

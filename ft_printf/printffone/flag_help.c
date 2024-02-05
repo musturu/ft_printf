@@ -41,7 +41,7 @@ char *need_sign(t_format fmt, int c)
               return ("+");
       }
       else if (ft_strchr(fmt.flags, ' ')
-          && (conv == 'd' || conv == 'i') && fmt.width == 0 && !fmt.pflag)
+          && (conv == 'd' || conv == 'i') && !fmt.pflag)
           return (" ");
       else
          return (0);
@@ -49,13 +49,19 @@ char *need_sign(t_format fmt, int c)
 
 void	put_sign(char *sign, int sign_num, char *dest)
 {
-	while(*dest)
+	int i;
+
+	i = 0;
+	while(dest[i])
 	{
-		if (ft_isalnum(*dest))
+		if (ft_isalnum(dest[i]))
 		{
-			ft_memcpy(dest - sign_num, sign, sign_num);
+			if (i == 0)
+				ft_memcpy(dest, sign, sign_num);
+			else
+				ft_memcpy(dest+ i - sign_num, sign, sign_num);
 			return ;
 		}
-		dest++;
+		i++;
 	}
 }

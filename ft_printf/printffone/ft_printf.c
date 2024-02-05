@@ -52,6 +52,7 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%')
 		{
 			pipeline(str + i, ap, &count, &i);
+			i++;
 		}
 		else
 		{
@@ -77,7 +78,7 @@ char	*stringify(t_format format, va_list ap)
 	if (format.conversion == 'i')
 		return	str_num(format, va_arg(ap, int));
 	if (format.conversion == 'u')
-		return	str_num(format, va_arg(ap, unsigned int));
+		return	str_unsnum(format, va_arg(ap, unsigned int));
 	if (format.conversion == 'x')
 		return	str_hexnum(format, va_arg(ap, unsigned int));
 	if (format.conversion == 'X')
@@ -93,7 +94,9 @@ void	pipeline(const char *str, va_list ap, int *count, int *i)
 	char	*towrite;
 
 	toform = get_format(str);
-	*i += ft_strlen(toform);
+	if (toform == NULL)
+		return ;
+	*i += ft_strlen(toform) - 1;
 	format = read_format(toform);
 	towrite = stringify(format, ap);
 	ft_putstr_count(towrite, count);

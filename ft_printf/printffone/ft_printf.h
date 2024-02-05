@@ -29,7 +29,6 @@ typedef struct s_format
 } t_format;
 
 
-void    write_ptr(t_format fmt, int index, uintptr_t number, char *dest);
 int		ft_printf(const char *str, ...);
 char		*get_format(const char* str);
 t_format	read_format(char *format);
@@ -39,6 +38,7 @@ int		is_signed(int c, t_format fmt);
 int		need_space(int c, t_format ftm);
 char		*str_c(t_format format, int c);
 char		*str_perc(t_format format);
+char		*str_unsnum(t_format format, unsigned int num);
 char		*str_s(t_format format, char *str);
 void		ft_putstr_count(char *str, int *count);
 char		*str_ptrnum(t_format format, void *ptr);
@@ -46,11 +46,10 @@ char		*str_num(t_format format, int num);
 char		*str_hexnum(t_format format,unsigned int num);
 int		countd(long int num, int base);
 void		ft_putchar_count(char c, int *count);
-char	*ft_itoa_base(unsigned int number, char *base);
+char	*ft_itoa_base(long int number, char *base);
 char	*need_sign(t_format fmt, int c);
 char	needed_pad(t_format fmt);
 int	get_base(t_format fmt);
 void	put_sign(char *fmt, int num, char *dest);
-void	write_num(t_format fmt, int index, long unsigned int number, char *dest);
-char    *ft_itoa_base_ptr(uintptr_t number, char *base);
+void	write_num(t_format fmt, int index, long int number, char *dest);
 #endif

@@ -62,7 +62,7 @@ char *str_s(t_format format, char *str)
     int		maxwrite;
     
     if (str == NULL)
-        return (NULL);
+        return (ft_strdup("(null)"));
     len = ft_strlen(str);
     if (len > format.width)
     {

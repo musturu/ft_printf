@@ -17,11 +17,6 @@ void	ft_putstr_count(char *str, int *count)
 	int i;
 
 	i = 0;
-    if (str == NULL)
-    {
-        ft_putstr_count("(null)", count);
-        return ;
-    }
 	while(str[i])
 	{
 		ft_putchar_count(str[i], count);
