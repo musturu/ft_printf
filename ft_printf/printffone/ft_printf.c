@@ -63,7 +63,7 @@ int	ft_printf(const char *str, ...)
 	return (count);
 }
 
-void	*stringify(t_format format, va_list ap,int *count)
+void	stringify(t_format format, va_list ap,int *count)
 {
 	if (format.conversion == '%')
 		return	str_perc(count);
@@ -84,7 +84,7 @@ void	*stringify(t_format format, va_list ap,int *count)
 	if (format.conversion == 'X')
 		return	str_hexnum(format, va_arg(ap, unsigned int), count);
     else
-        return (NULL);
+        return ;
 }
 
 void	pipeline(const char *str, va_list ap, int *count, int *i)

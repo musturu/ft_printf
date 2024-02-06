@@ -24,7 +24,7 @@ int get_prec(t_format fmt)
     return (i);
 }
 
-int    init_p(t_format fmt, char *str,int len, long int num)
+int    init_p(t_format fmt, char *str,int len,unsigned long int num)
 {
     int i;
     char pad;
@@ -52,7 +52,7 @@ int    init_p(t_format fmt, char *str,int len, long int num)
     return (startindex);
 }
 
-static void    mal_p(t_format fmt, long int str, int *icount)
+static void    mal_p(t_format fmt,unsigned long int str, int *icount)
 {
     char    *ret;
     int     count;
@@ -78,11 +78,11 @@ static void    mal_p(t_format fmt, long int str, int *icount)
 
 void	str_ptrnum(t_format fmt, void *ptr, int *count)
 {
-    long int num;
+    unsigned long int num;
 
     if (ptr == NULL)
          num = 0;
     else
-	    num = (long int)ptr;
+	    num = (unsigned long int)ptr;
     mal_p(fmt, num, count);
 }

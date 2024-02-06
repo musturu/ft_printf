@@ -12,23 +12,19 @@
 
 #include "ft_printf.h"
 
-void	write_num(t_format fmt, int index, long int number, char *dest)
+void	write_num(t_format fmt, int index,unsigned long int number, char *dest)
 {
 	char	*ito;
 	char	*base;
 	char	c;
-	long unsigned int num;
 
 	c = fmt.conversion;
-	num = number;
 	base = "0123456789";
-	if (number < 0)
-		num = -num;
 	if (c == 'x' || c == 'p')
 		base = "0123456789abcdef";
 	if (c == 'X')
 		base = "0123456789ABCDEF";
-	ito = ft_itoa_base(num, base);
+	ito = ft_itoa_base(number, base);
 	ft_memcpy(dest + index, ito, ft_strlen(ito));
 	free(ito);
 }

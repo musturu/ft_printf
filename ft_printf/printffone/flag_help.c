@@ -28,9 +28,9 @@ char *need_sign(t_format fmt, int c)
 	conv = fmt.conversion;
           if ((conv == 'x' || conv == 'X'))
           {
-              if (conv == 'x' && ft_strchr(fmt.flags, '#'))
+              if (conv == 'x' && ft_strchr(fmt.flags, '#') && c != 0)
                   return ("0x");
-              if (conv == 'X' && ft_strchr(fmt.flags, '#'))
+              if (conv == 'X' && ft_strchr(fmt.flags, '#') && c != 0)
                   return ("0X");
 	      return (0);
           }

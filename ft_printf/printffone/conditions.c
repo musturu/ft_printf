@@ -47,7 +47,7 @@ int need_space(int c, t_format fmt)
 	char cv;
 
 	cv = fmt.conversion;
-	if ((cv == 'x' || cv == 'X') && ft_strchr(fmt.flags, '#'))
+	if (((cv == 'x' || cv == 'X') && ft_strchr(fmt.flags, '#')) && c != 0)
 		return (2);
     if (is_signed(c, fmt))
         return (1);

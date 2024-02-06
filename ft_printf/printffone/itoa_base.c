@@ -12,9 +12,9 @@
 
 #include "ft_printf.h"
 
-static long int	getpower(int count, int basenum)
+static unsigned long int	getpower(int count, int basenum)
 {
-	long int	i;
+	unsigned long int	i;
 
 	i = 1;
 	while (count > 1)
@@ -26,13 +26,13 @@ static long int	getpower(int count, int basenum)
 }
 
 
-char	*ft_itoa_base(long int number, char *base)
+char	*ft_itoa_base(unsigned long int number, char *base)
 {
 	int basen;
-	long int ipwr;
+	unsigned long int ipwr;
 	char *ret;
 	int i;
-
+    
 	basen = ft_strlen(base);
 	i = 0;
 	ipwr = getpower(countd(number, basen), basen);
