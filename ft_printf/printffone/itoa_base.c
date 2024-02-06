@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:04:03 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/31 13:49:01 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/02/06 16:28:29 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ static unsigned long int	getpower(int count, int basenum)
 	return (i);
 }
 
-
 char	*ft_itoa_base(unsigned long int number, char *base)
 {
-	int basen;
-	unsigned long int ipwr;
-	char *ret;
-	int i;
-    
+	int					basen;
+	unsigned long int	ipwr;
+	char				*ret;
+	int					i;
+
 	basen = ft_strlen(base);
 	i = 0;
 	ipwr = getpower(countd(number, basen), basen);

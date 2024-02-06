@@ -6,7 +6,7 @@ AR				=	ar
 ARFLAGS 		=	rcs
 RM				=	rm -rf
 
-SRC				=	conditions countdigits flag_help	format ft_printf ft_putchar_count ft_putstr_count get_base itoa_base itoa_base_ptr str_diu str_per_c_s str_ptrnum str_xX write_num
+SRC				=	conditions countdigits flag_help	format ft_printf ft_putchar_count ft_putstr_count get_base itoa_base str_diu str_per_c_s str_ptrnum str_xX write_num countdig
 
 SRC_DIR			=	printffone
 SRCS                    =       $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(SRC)))
@@ -42,8 +42,5 @@ fclean:				clean
 					$(RM) $(NAME)
 
 re:					fclean all
-
-cazzi:				
-	echo 	"cazzi in culo"
 
 .PHONY:				all bonus clean fclean re libft

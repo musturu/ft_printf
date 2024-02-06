@@ -6,7 +6,7 @@
 /*   By: lmoricon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:58:04 by lmoricon          #+#    #+#             */
-/*   Updated: 2024/01/31 14:02:14 by lmoricon         ###   ########.fr       */
+/*   Updated: 2024/02/06 16:24:24 by lmoricon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	get_base(t_format fmt)
 {
-	int c;
+	int	c;
 
 	c = fmt.conversion;
 	if (c == 'i' || c == 'u' || c == 'd')
-	return  10;
+		return (10);
 	else
-		return 16;
+		return (16);
 }
