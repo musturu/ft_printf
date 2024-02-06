@@ -100,4 +100,5 @@ void	pipeline(const char *str, va_list ap, int *count, int *i)
 	format = read_format(toform);
 	towrite = stringify(format, ap);
 	ft_putstr_count(towrite, count);
+	free(towrite);
 }

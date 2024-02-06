@@ -60,9 +60,9 @@ char *str_s(t_format format, char *str)
     char	*ret;
     int		len;
     int		maxwrite;
-    
+
     if (str == NULL)
-        return (ft_strdup("(null)"));
+	    str = "(null)";
     len = ft_strlen(str);
     if (len > format.width)
     {

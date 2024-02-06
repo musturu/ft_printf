@@ -67,4 +67,3 @@ char	*str_hexnum(t_format fmt, unsigned int str)
 	ret = mal_x(fmt, str);
 	return (ret);
 }
-

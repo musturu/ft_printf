@@ -33,7 +33,10 @@ int	is_accepted_flag(int c)
 
 int is_signed(int c, t_format fmt)
 {
-    if (c < 0 || (ft_strchr(fmt.flags, '+') && (fmt.conversion == 'd' || fmt.conversion == 'i')))
+	char conv;
+
+	conv = fmt.conversion;
+    if ((c < 0 || ft_strchr(fmt.flags, '+')) && (conv == 'i' || conv == 'd'))
         return (1);
     else
         return (0);

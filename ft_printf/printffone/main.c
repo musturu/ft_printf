@@ -582,7 +582,7 @@ void	test_invalid_spec(void)
 int	main(void)
 {
 	printf("\n\n========== MANDATORY TESTS ========\n\n");
-/*	test_simple();
+	test_simple();
 	test_percent();
 	test_c();
 	test_s();
@@ -592,7 +592,7 @@ int	main(void)
 	test_X();
 	test_u();
 	test_p();
-	test_all();*/
+	test_all();
 
 	printf("\n\n========== BONUS TESTS ============\n\n");
 	test_bonus_char();

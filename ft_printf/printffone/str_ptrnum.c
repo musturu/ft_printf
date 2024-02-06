@@ -81,8 +81,9 @@ char	*str_ptrnum(t_format fmt, void *ptr)
     long int num;
 
     if (ptr == NULL)
-         return (ft_strdup("0x0"));
-    num = (long int)ptr;
+         num = 0;
+    else
+	    num = (long int)ptr;
     ret = mal_p(fmt, num);
     return (ret);
 }

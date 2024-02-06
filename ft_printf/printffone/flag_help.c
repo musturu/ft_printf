@@ -26,12 +26,13 @@ char *need_sign(t_format fmt, int c)
 	char conv;
 
 	conv = fmt.conversion;
-          if ((conv == 'x' || conv == 'X') && ft_strchr(fmt.flags, '#'))
+          if ((conv == 'x' || conv == 'X'))
           {
-              if (conv == 'x')
+              if (conv == 'x' && ft_strchr(fmt.flags, '#'))
                   return ("0x");
-              else
+              if (conv == 'X' && ft_strchr(fmt.flags, '#'))
                   return ("0X");
+	      return (0);
           }
       if (is_signed(c, fmt))
       {
