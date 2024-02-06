@@ -1,39 +1,49 @@
-# Makefile principale
+NAME			=	libftprintf.a
 
-TARGET = my_program
-SRC_DIR = printffone
-LIB_DIR = libft
-OBJ_DIR = obj
+CC				=	gcc
+CFLAGS			=	-Wall -Wextra -Werror
+AR				=	ar
+ARFLAGS 		=	rcs
+RM				=	rm -rf
 
-SRCS = $(wildcard $(SRC_DIR)/*.c)
-OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
-LIB = $(LIB_DIR)/libft.a
+SRC				=	conditions countdigits flag_help	format ft_printf ft_putchar_count ft_putstr_count get_base itoa_base itoa_base_ptr str_diu str_per_c_s str_ptrnum str_xX write_num
 
-CC = gcc
-CFLAGS = -Wall -Wextra -I$(LIB_DIR)
+SRC_DIR			=	printffone
+SRCS                    =       $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(SRC)))
 
-all: $(TARGET)
-
-$(TARGET): $(OBJS) $(LIB)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) -L$(LIB_DIR) -lft
+OBJ_DIR			=	obj
+OBJS                    =       $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(SRC)))
+LIBFT_PATH		=	./libft
+LIBFT			=	$(LIBFT_PATH)/libft.a
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+all:				$(NAME)
 
-$(LIB):
-	@$(MAKE) -C $(LIB_DIR)
+bonus:				all
+
+$(NAME):			$(LIBFT) $(OBJ_DIR) $(OBJS)
+				cp	$(LIBFT) $(NAME)
+					$(AR) $(ARFLAGS) $(NAME) $(OBJS)
+
+$(LIBFT):
+					make -C $(LIBFT_PATH) all
+
+$(OBJ_DIR):
+					mkdir -p $(OBJ_DIR)
 
 clean:
-	$(RM) -r $(OBJ_DIR)
-	@$(MAKE) -C $(LIB_DIR) clean
+					make -C $(LIBFT_PATH) clean
+					$(RM) $(OBJ_DIR)
 
-fclean: clean
-	$(RM) $(TARGET)
-	@$(MAKE) -C $(LIB_DIR) fclean
+fclean:				clean
+					make -C $(LIBFT_PATH) fclean
+					$(RM) $(NAME)
 
-re: fclean all
+re:					fclean all
 
-.PHONY: all clean fclean re
+cazzi:				
+	echo 	"cazzi in culo"
+
+.PHONY:				all bonus clean fclean re libft

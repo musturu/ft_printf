@@ -37,7 +37,7 @@ int		is_accepted_conv(int c);
 int		is_signed(int c, t_format fmt);
 int		need_space(int c, t_format ftm);
 char		*str_c(t_format format, int c);
-char		*str_perc(t_format format);
+char		*str_perc();
 char		*str_unsnum(t_format format, unsigned int num);
 char		*str_s(t_format format, char *str);
 void		ft_putstr_count(char *str, int *count);

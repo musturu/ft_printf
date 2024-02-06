@@ -33,13 +33,13 @@ char *str_c(t_format format, int c)
     return (ret);
 }
 
-char *str_perc(t_format format)
+char *str_perc()
 {
     char    *ret;
 
         ret = ft_calloc(sizeof(char) , 2);
-    if (ret == NULL)
-        return (NULL);
+	if (ret == NULL)
+		return (NULL);
         ret[0] = '%';
     return (ret);
 }
@@ -49,7 +49,7 @@ void	ft_new_strlcpy(char *dest,char *src, size_t len)
 	int	i;
 
 	i = 0;
-	while(i < len && src[i])
+	while(i < (int)len && src[i])
 	{
 		dest[i] = src[i];
 		i++;
@@ -78,7 +78,7 @@ char *str_s(t_format format, char *str)
     if (ret == NULL)
         return (NULL);
     ft_memset(ret, ' ', len);
-    if (format.pflag && ft_strlen(str) > format.precision)
+    if (format.pflag && (int)ft_strlen(str) > format.precision)
 	    maxwrite = format.precision;
     else
 	    maxwrite = ft_strlen(str);
