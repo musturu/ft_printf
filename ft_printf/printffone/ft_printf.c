@@ -63,26 +63,26 @@ int	ft_printf(const char *str, ...)
 	return (count);
 }
 
-char	*stringify(t_format format, va_list ap)
+void	*stringify(t_format format, va_list ap,int *count)
 {
 	if (format.conversion == '%')
-		return	str_perc(format);
+		return	str_perc(count);
 	if (format.conversion == 'c')
-		return	str_c(format, va_arg(ap, int));
+		return	str_c(format, va_arg(ap, int), count);
 	if (format.conversion == 's')
-		return	str_s(format, va_arg(ap, char *));
+		return	str_s(format, va_arg(ap, char *), count);
 	if (format.conversion == 'p')
-		return	str_ptrnum(format, va_arg(ap, void *));
+		return	str_ptrnum(format, va_arg(ap, void *), count);
 	if (format.conversion == 'd')
-		return	str_num(format, va_arg(ap, int));
+		return	str_num(format, va_arg(ap, int), count);
 	if (format.conversion == 'i')
-		return	str_num(format, va_arg(ap, int));
+		return	str_num(format, va_arg(ap, int), count);
 	if (format.conversion == 'u')
-		return	str_unsnum(format, va_arg(ap, unsigned int));
+		return	str_unsnum(format, va_arg(ap, unsigned int), count);
 	if (format.conversion == 'x')
-		return	str_hexnum(format, va_arg(ap, unsigned int));
+		return	str_hexnum(format, va_arg(ap, unsigned int), count);
 	if (format.conversion == 'X')
-		return	str_hexnum(format, va_arg(ap, unsigned int));
+		return	str_hexnum(format, va_arg(ap, unsigned int), count);
     else
         return (NULL);
 }
@@ -91,14 +91,12 @@ void	pipeline(const char *str, va_list ap, int *count, int *i)
 {
 	t_format format;
 	char	*toform;
-	char	*towrite;
 
 	toform = get_format(str);
 	if (toform == NULL)
 		return ;
 	*i += ft_strlen(toform) - 1;
 	format = read_format(toform);
-	towrite = stringify(format, ap);
-	ft_putstr_count(towrite, count);
-	free(towrite);
+	stringify(format, ap, count);
+    free(format.flags);
 }

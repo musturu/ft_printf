@@ -12,26 +12,20 @@
 
 #include "ft_printf.h"
 
-static char    *mal_diux(t_format fmt,long int str, int base);
+static void    mal_diux(t_format fmt,long int str, int base, int *count);
 static int    init_diux(t_format fmt, char *str, int len, long int num);
 
-char *str_num(t_format fmt, int str)
+void str_num(t_format fmt, int str, int *count)
 {
-	char	*ret;
-
-	ret = mal_diux(fmt, str, 10);
-	return (ret);
+    mal_diux(fmt, str, 10, count);
 }
 
-char	*str_unsnum(t_format fmt, unsigned int str)
+void	str_unsnum(t_format fmt, unsigned int str, int *count)
 {
-	char	*ret;
-
-	ret = mal_diux(fmt, str, 10);
-	return (ret);
+    mal_diux(fmt, str, 10, count);
 }
 
-static char    *mal_diux(t_format fmt,long int str, int base)
+static void    mal_diux(t_format fmt,long int str, int base, int *icount)
 {
     char    *ret;
     int     count;
@@ -47,11 +41,12 @@ static char    *mal_diux(t_format fmt,long int str, int base)
 	    len = count;
     ret = ft_calloc(sizeof(char) , (len + 1));
     if (ret == NULL)
-	    return (NULL);
+	    return ;
     startind = init_diux(fmt, ret, len, str);
     write_num(fmt, startind /*+ need_space(str, fmt)*/, str, ret);
     put_sign(need_sign(fmt, str), need_space(str, fmt), ret);
-    return (ret);
+    ft_putstr_count(ret, icount, len);
+    free(ret);
 }
 
 static int    init_diux(t_format fmt, char *str, int len,long int num)

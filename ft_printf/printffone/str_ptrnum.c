@@ -52,7 +52,7 @@ int    init_p(t_format fmt, char *str,int len, long int num)
     return (startindex);
 }
 
-static char    *mal_p(t_format fmt, long int str)
+static void    mal_p(t_format fmt, long int str, int *icount)
 {
     char    *ret;
     int     count;
@@ -66,24 +66,23 @@ static char    *mal_p(t_format fmt, long int str)
         len = fmt.width;
     else
         len = count;
-    ret = malloc(sizeof(char) * (len + 1));
+    ret = ft_calloc(sizeof(char) , (len + 1));
     if (ret == NULL)
-        return (NULL);
+        return ;
     startind = init_p(fmt, ret, len, str);
     write_num(fmt, startind, str, ret);
     put_sign("0x", 2, ret);
-    return (ret);
+    ft_putstr_count(ret, icount, len);
+    free(ret);
 }
 
-char	*str_ptrnum(t_format fmt, void *ptr)
+void	str_ptrnum(t_format fmt, void *ptr, int *count)
 {
-    char    *ret;
     long int num;
 
     if (ptr == NULL)
          num = 0;
     else
 	    num = (long int)ptr;
-    ret = mal_p(fmt, num);
-    return (ret);
+    mal_p(fmt, num, count);
 }

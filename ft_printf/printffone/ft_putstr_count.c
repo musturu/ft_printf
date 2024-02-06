@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
-void	ft_putstr_count(char *str, int *count)
+void	ft_putstr_count(char *str, int *count, int len)
 {
 	int i;
 
 	i = 0;
-	while(str[i])
+	while(i != len)
 	{
 		ft_putchar_count(str[i], count);
 		i++;

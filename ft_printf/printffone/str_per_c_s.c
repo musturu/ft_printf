@@ -12,36 +12,38 @@
 
 #include "ft_printf.h"
 #include <stdio.h>
-char *str_c(t_format format, int c)
+void str_c(t_format format, int c, int *count)
 {
     char    *ret;
     int len;
 
     if (format.width == 0)
-	    len = 2;
+	    len = 1;
     else
-	    len = format.width + 1;
-    ret = ft_calloc(sizeof(char) , len);
+	    len = format.width;
+    ret = ft_calloc(sizeof(char) , len + 1);
     if (ret == NULL)
-        return (NULL);
+        return ;
     ft_memset(ret, ' ', len);
-    ret[len - 1] = '\0';
+    ret[len] = '\0';
     if (ft_strchr(format.flags, '-'))
         ret[0] = c;
     else
-        ret[len - 2] = c;
-    return (ret);
+        ret[len - 1] = c;
+    ft_putstr_count(ret, count, len);
+    free(ret);
 }
 
-char *str_perc()
+void str_perc(int *count)
 {
     char    *ret;
-
+    
         ret = ft_calloc(sizeof(char) , 2);
 	if (ret == NULL)
-		return (NULL);
+		return ;
         ret[0] = '%';
-    return (ret);
+    ft_putstr_count(ret, count, 1);
+    free(ret);
 }
 
 void	ft_new_strlcpy(char *dest,char *src, size_t len)
@@ -55,7 +57,7 @@ void	ft_new_strlcpy(char *dest,char *src, size_t len)
 		i++;
 	}
 }
-char *str_s(t_format format, char *str)
+void str_s(t_format format, char *str, int *count)
 {
     char	*ret;
     int		len;
@@ -76,7 +78,7 @@ char *str_s(t_format format, char *str)
 	    len = format.width;
     ret = ft_calloc(sizeof(char) , (len + 1));
     if (ret == NULL)
-        return (NULL);
+        return ;
     ft_memset(ret, ' ', len);
     if (format.pflag && (int)ft_strlen(str) > format.precision)
 	    maxwrite = format.precision;
@@ -86,5 +88,6 @@ char *str_s(t_format format, char *str)
         ft_new_strlcpy(ret, str, maxwrite);
     else
         ft_strlcpy(ret + (len - maxwrite), str, maxwrite + 1);
-    return (ret);
+    ft_putstr_count(ret, count, len);
+    free(ret);
 }

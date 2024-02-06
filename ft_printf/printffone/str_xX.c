@@ -38,7 +38,7 @@ int    init_x(t_format fmt, char *str,int len,unsigned int num)
 	return (startindex);
 }
 
-static char    *mal_x(t_format fmt, unsigned int str)
+static void    mal_x(t_format fmt, unsigned int str, int *icount)
 {
     char    *ret;
     int     count;
@@ -54,16 +54,15 @@ static char    *mal_x(t_format fmt, unsigned int str)
 	    len = count;
     ret = ft_calloc(sizeof(char), (len + 1));
     if (ret == NULL)
-	    return (NULL);
+	    return ;
     startind = init_x(fmt, ret, len, str);
     write_num(fmt, startind, str, ret);
     put_sign(need_sign(fmt, str), need_space(str, fmt), ret);
-    return (ret);
+    ft_putstr_count(ret, icount, len);
+    free(ret);
 }
 
-char	*str_hexnum(t_format fmt, unsigned int str)
+void	str_hexnum(t_format fmt, unsigned int str, int *count)
 {
-	char	*ret;
-	ret = mal_x(fmt, str);
-	return (ret);
+    mal_x(fmt, str, count);
 }
